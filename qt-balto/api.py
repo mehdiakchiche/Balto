@@ -8,13 +8,12 @@ def get_tables():
 def get_produits():
     return requests.get(f"{BASE_URL}/restaurant/produits/").json()
 
-def creer_commande():
-    r = requests.post(f"{BASE_URL}/restaurant/commande/")
-    try:
-        return r.json()
-    except ValueError:
-        print("Réponse brute Django:", r.text)
-        return {"error": "Réponse invalide"}
+def creer_commande(table_id):
+    r = requests.post(
+        f"{BASE_URL}/restaurant/commande/",
+        data={"table_id": table_id}
+    )
+    return r.json()
 
 def ajouter_plat(commande_id, produit_id, quantite):
     requests.post(

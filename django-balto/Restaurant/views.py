@@ -17,14 +17,16 @@ def produits(request):
 @csrf_exempt
 def creer_commande(request):
     if request.method != "POST":
-        return JsonResponse(
-            {"error": "Méthode non autorisée"},
-            status=405
-        )
+        return JsonResponse({"error": "Méthode non autorisée"}, status=405)
+
+    table_id = request.POST.get("table_id")
+
+    if not table_id:
+        return JsonResponse({"error": "table_id manquant"}, status=400)
 
     commande = Commande.objects.create(
-        table=None,
-        statut="BROUILLON"
+        table_id=table_id,
+        statut="EN_COURS"
     )
 
     return JsonResponse({"commande_id": commande.id})

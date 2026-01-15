@@ -63,5 +63,8 @@ class LigneCommande(models.Model):
     ]
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES) # Statut final de la commande (en caisse)
 
+    def __str__(self):
+        return f"{self.produit.nom} - Table {self.commande.table.numero}"
+
 
 

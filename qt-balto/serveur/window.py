@@ -14,6 +14,7 @@ class ServeurWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Serveur")
 
+        self.table_selectionnee = None
         self.commande_id = None
         self.commande_validee = False
         self.commande_locale = {}
@@ -47,8 +48,18 @@ class ServeurWindow(QWidget):
             self.layout.addWidget(btn)
 
     def select_table(self, table):
-        if not self.commande_id:
-            self.commande_id = creer_commande(table['id'])['commande_id']
+        if self.commande_id:
+            QMessageBox.warning(self, "Erreur", "Commande déjà en cours")
+            return
+
+        self.table_selectionnee = table
+        result = creer_commande(table['id'])
+
+        if "commande_id" not in result:
+            QMessageBox.critical(self, "Erreur", "Impossible de créer la commande")
+            return
+
+        self.commande_id = result["commande_id"]
 
     def init_produits(self):
         self.produits = get_produits()
@@ -58,11 +69,13 @@ class ServeurWindow(QWidget):
             self.layout.addWidget(btn)
 
     def ajouter(self, produit):
-        if self.commande_validee:
-            return
-        
         if not self.commande_id:
-            self.commande_id = creer_commande()['commande_id']
+            QMessageBox.warning(
+                self,
+                "Erreur",
+                "Veuillez sélectionner une table avant de commander"
+            )
+            return
 
         pid = produit['id']
         self.commande_locale[pid] = self.commande_locale.get(pid, 0) + 1
@@ -107,16 +120,12 @@ class ServeurWindow(QWidget):
 
         table = tables[items.index(choix)]
 
-        valider_commande(self.commande_id, table['id'])
-        self.commande_validee = True
-
         QMessageBox.information(
             self,
             "Commande validée",
             f"Commande envoyée pour la table {table['numero']}"
         )
 
-        valider_commande(self.commande_id)
         self.commande_validee = True
         QMessageBox.information(self, "OK", "Commande envoyée en cuisine")
 
