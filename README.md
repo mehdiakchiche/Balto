@@ -14,13 +14,14 @@ pip install -r requirements.txt
 
 
 
-\# Variables d’environnement
+Variables d’environnement
 
 
 
 Dans Django (settings.py) :
 
 SECRET\_KEY = os.getenv("SECRET\_KEY")
+
 
 
 
