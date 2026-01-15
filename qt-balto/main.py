@@ -10,7 +10,7 @@ def main():
     app = QApplication(sys.argv)
 
     # A CHANGER POUR CHANGER D'INTERFACE
-    #window = ServeurWindow()
+    window = ServeurWindow()
     #window = CuisineWindow()
     #window = CaisseWindow()
     window.show()

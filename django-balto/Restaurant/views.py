@@ -16,12 +16,18 @@ def produits(request):
 
 @csrf_exempt
 def creer_commande(request):
-    data = json.loads(request.body)
+    if request.method != "POST":
+        return JsonResponse(
+            {"error": "Méthode non autorisée"},
+            status=405
+        )
+
     commande = Commande.objects.create(
-        table_id=data['table_id'],
-        statut='EN_COURS'
+        table=None,
+        statut="BROUILLON"
     )
-    return JsonResponse({'commande_id': commande.id})
+
+    return JsonResponse({"commande_id": commande.id})
 
 @csrf_exempt
 def ajouter_plat(request):
@@ -35,3 +41,53 @@ def ajouter_plat(request):
     )
 
     return JsonResponse({'status': 'ok'})
+
+@csrf_exempt
+def retirer_plat(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Méthode non autorisée"}, status=405)
+
+    commande_id = request.POST.get("commande_id")
+    produit_id = request.POST.get("produit_id")
+
+    if not commande_id or not produit_id:
+        return JsonResponse({"error": "Paramètres manquants"}, status=400)
+
+    try:
+        ligne = LigneCommande.objects.get(
+            commande_id=commande_id,
+            produit_id=produit_id
+        )
+        ligne.quantite -= 1
+        if ligne.quantite <= 0:
+            ligne.delete()
+        else:
+            ligne.save()
+
+        return JsonResponse({"success": True})
+
+    except LigneCommande.DoesNotExist:
+        return JsonResponse({"error": "Produit non trouvé"}, status=404)
+
+
+@csrf_exempt
+def valider_commande(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Méthode non autorisée"}, status=405)
+
+    commande_id = request.POST.get("commande_id")
+    table_id = request.POST.get("table_id")
+
+    if not commande_id or not table_id:
+        return JsonResponse({"error": "Paramètres manquants"}, status=400)
+
+    try:
+        commande = Commande.objects.get(id=commande_id)
+        commande.table_id = table_id
+        commande.statut = "EN_CUISINE"
+        commande.save()
+
+        return JsonResponse({"success": True})
+
+    except Commande.DoesNotExist:
+        return JsonResponse({"error": "Commande introuvable"}, status=404)

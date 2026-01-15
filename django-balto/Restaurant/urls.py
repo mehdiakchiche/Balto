@@ -7,5 +7,7 @@ urlpatterns = [
     path('tables/', views.tables),
     path('produits/', views.produits),
     path('commande/', views.creer_commande),
-    path('produits/', views.ajouter_plat),
+    path('ajout-plat/', views.ajouter_plat),
+    path('retirer-plat/', views.retirer_plat),
+    path('valider-commande/', views.valider_commande),
 ]
