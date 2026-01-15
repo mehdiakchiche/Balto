@@ -1,0 +1,71 @@
+INFORMATIONS
+
+Nom : Le Balto
+Localisation : Paris
+
+DEMANDES
+
+1) Le "gérant" souhaite : 
+	- un "site internet" permettant aux clients de réserver des places (1 page WEB #1).
+
+2) Le "gérant" désire :
+	- un "système de saisie des plats et consommations" (1ere interface QT #2) avec des téléphones ou tablettes connectés sur un WIFI interne sécurisé.
+
+3) Le "serveur" :
+	- "Choisit la table du client" et "saisit les commandes du client (Menu du jour, plats, boissons, café) sur sa tablette".
+
+4) La "tablette" :
+	- lui indique si "des plats ne sont plus disponibles" (stocks épuisés)
+
+5) Les "commandes" de plats :
+	- arrivent directement "sur le PC cuisine équipé d'un écran tactile" (2eme interface QT #3) "ou les cuisiniers acquittent le plat sur l'écran tactile "quand il est prêt à dresser", "en vue de la facturation"
+
+6) Un "serveur informatique" :
+	- "Regroupe les commandes et calcule les factures automatiquement"
+
+7) Les "factures" :
+	- "Seront éditées sur le PC caisse" (3eme interface QT #4) disposant d'un écran tactile et d'une imprimante de caisse"
+
+8) Les "factures" :
+	- "Seront éditées par table"
+
+9) Le "site WEB" :
+	- "Doit permettre de consulter les horaires" , "le menu du jour" , "de faire une réservation"
+
+10) Le "patron" souhaite :
+	- "Créer des comptes clients entreprise". Les entreprises auront une "facilité de paiement en fin de mois pour la facture globale"
+
+11) Le "paiement" :
+	- S'effectuera via "un système de cartes RFID"
+
+12) Le "plan du restaurant" (voir image ci-joint) :
+	- "Doit être intégré dans l'IHM de saisie des commandes clients pour associer les commandes aux tables"
+
+CONTRAINTES DE REALISATION
+
+-3 PC 
+-1 Raspberry Pi (cuisine)
+-2 téléphones ou tablettes Android
+-1 imprimante de ticket de caisse
+-1 afficheur de caisse
+-1 lecteur RFID
+-Plateforme de développement QT
+
+CONTRAINTES QUALITES 
+
+-Les factures sont archivées 
+-La saisie des commandes doit être rapide
+
+CONTRAINTES DE FIABILITE, SECURITE
+
+- La connexion WIFI est sécurisée
+
+RESSOURCES QUE JE VAIS UTILISER 
+
+-QT pour python pour les interfaces front-end (PySide6)
+-Django pour le back-end
+
+
+
+	
+	

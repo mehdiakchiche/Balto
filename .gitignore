@@ -1,0 +1,25 @@
+# Environnements virtuels
+venv/
+env/
+.venv/
+
+# Django
+__pycache__/
+*.py[cod]
+db.sqlite3
+media/
+staticfiles/
+
+# Fichiers sensibles
+.env
+
+# Qt / PyQt / PySide
+*.ui~
+*.qrc~
+build/
+dist/
+
+# OS / éditeurs
+.DS_Store
+.idea/
+.vscode/
