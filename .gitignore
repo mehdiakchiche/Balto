@@ -1,0 +1,11 @@
+#Environnement
+.env
+venv/
+__pycache__/
+
+#Django 
+db.sqlite3
+*.log
+
+#Python
+*.pyc
